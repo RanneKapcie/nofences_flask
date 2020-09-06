@@ -1,0 +1,31 @@
+{% extends "map_neigh/home.html" %}
+{% block content %}
+
+<!--jQuery scripts -->
+<script>
+</script>
+
+<div class='container'>
+  <div id='inner'>
+    <br>
+    {% if current_user.is_authenticated %}
+    <form method="POST">
+
+      <label>Treść ogłoszenia</label>
+        <br>
+        <input type='text' name='content' required>
+        <br>
+        <label>Cena</label>
+        <input type="text" name="price" required>
+        <br>
+
+    <button class="btn btn-primary" type="submit">Dodaj</button>
+    </form>
+    {% else %}
+    <label> Aby dodać ogłoszenie najpierw się <a href="/login">zaloguj</a></label>
+    {% endif %}
+    <br>
+  </div>
+</div>
+
+{% endblock %}

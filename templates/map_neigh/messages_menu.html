@@ -1,0 +1,28 @@
+{% extends "map_neigh/home.html" %}
+
+{% block content %}
+
+<div class="container">
+    {% if current_user.is_authenticated %}
+  <h4>
+      Skrzynka odbiorcza:
+  </h4>
+        <table>
+            <thead>
+                <tr>
+                    <th class="column1">Nadawca</th><th class="column2">Treść</th>
+                </tr>
+            </thead>
+            {% for chatter in chatters %}
+                <tr>
+                    <td class="column1"><a href="/messages_menu/{{ chatter }}">{{ chatter }}</a></td><td class="column2">{{ last_messages[chatter] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+    Zaloguj się
+    {% endif %}
+  <a href='../password_change/'>Zmiana hasła</a>
+</div>
+
+{% endblock %}

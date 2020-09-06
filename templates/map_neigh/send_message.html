@@ -1,0 +1,31 @@
+{% extends "map_neigh/home.html" %}
+{% block content %}
+
+<!--jQuery scripts -->
+<script>
+</script>
+
+<div class='container'>
+  <div id='inner'>
+    <br>
+    {% if current_user.is_authenticated %}
+    <form method="POST">
+      <h3>Wyślij wiadomość</h3>
+      <label>Wpisz nazwę użytkownika, do którego chcesz napisać</label>
+        <br>
+        <input type='text' name='receiver' required>
+        <br>
+        <label>Treść</label>
+        <input type="text" name="message" required>
+        <br>
+
+    <button class="btn btn-primary" type="submit">Wyślij</button>
+    </form>
+    {% else %}
+    <label> Aby wysłać wiadomość najpierw się <a href="/login">zaloguj</a></label>
+    {% endif %}
+    <br>
+  </div>
+</div>
+
+{% endblock %}

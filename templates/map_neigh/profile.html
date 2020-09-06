@@ -1,0 +1,18 @@
+{% extends "map_neigh/home.html" %}
+
+{% block content %}
+
+<div class="container">
+    {% if current_user.is_authenticated %}
+  <h3>Kokpit użytkownika {{ current_user.username }}</h3></br></br>
+  <h5>Przypisany adres: {{ current_user.address_id }} </br></br>
+      Dzielnica/osiedle: {{ current_user.district }} </br></br>
+      Przypisany adres E-mail: {{ current_user.email }} </br></br>
+  </h5>
+    {% else %}
+    Zaloguj się
+    {% endif %}
+  <a href='../change_password/'>Zmiana hasła</a>
+</div>
+
+{% endblock %}

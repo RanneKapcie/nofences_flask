@@ -1,0 +1,85 @@
+{% extends "map_neigh/home.html" %}
+{% block content %}
+
+<!--jQuery scripts -->
+<script>
+</script>
+
+<div class='container'>
+  <div id='inner'>
+    <br>
+      <form action="register/" method="POST">
+        <label>Nazwa użytkownika</label>
+        <br>
+        <input type='text' name='username' required>
+        <br>
+        <label>Wprowadź hasło</label>
+        <input type="password" name="password" required>
+        <label>Powtórz hasło</label>
+        <input type="password" name="password2" required>
+        <label>Adres email</label>
+        <input type='text' name='email' required>
+        <br>
+        <label for="district">Wybierz swoją dzielnicę:</label>
+        <select name='district' id="district" style="display: block;" required>
+          <option value='Morasko'>Morasko</option>
+          <option value='Piatkowo'>Piątkowo</option>
+        </select>
+        <br>
+        <br>
+        <input type="hidden" name="id_address" id="id_address" required>
+        <label for="map1">Zaznacz dom, w którym mieszkasz</label>
+        <div id='map1'></div>
+        <button type="submit" class="btn btn-default">Zarejestruj</button>
+      </form>
+    <br>
+    Jeżeli masz już konto <a href="/login"><strong>zaloguj</strong></a> się.
+  </div>
+</div>
+
+<script>
+  //osm layer
+  var osm = L.tileLayer('https://api.mapbox.com/styles/v1/rannekapcie00/cjseg2i0p0ju41gphhq62t1h4/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicmFubmVrYXBjaWUwMCIsImEiOiJjamY4MzNyM3Qyb3ZtMzFrN3ltMnNkNTJqIn0.bus9unBLrRQ4SAmFaShBMg',
+  {
+    maxZoom: 19,
+    attribution: "Data by OpenStreetMap"
+  });
+  //creating map object
+  var map = new L.map('map1', {
+    center: new L.LatLng(52.474949, 16.912119),
+    zoom: 16.0,
+    layers: [osm],
+    zoomControl: true
+  });
+
+  //locator button
+  var locator = L.control.locate({
+    position: 'topleft',
+    strings: {
+      title: 'Zlokalizuj'
+    }
+  }).addTo(map);
+
+  function onFeature(feature, layer) {
+    layer.on('click', function(e){
+      document.getElementById("id_address").value = parseInt(feature.properties.id)
+    })
+    var html = "<strong> Wybrałeś ten obiekt </strong>"
+    layer.bindPopup(html)
+  };
+
+$.ajax({
+    type:"GET",
+    url: "../geojson",
+    dataType: 'json',
+    success: function(response){
+      layer = L.geoJson(response, {
+        style: function(feature){
+          return {color: "#2c65c1", fillColor: "4774bc", weight: 2};
+        },
+        onEachFeature: onFeature
+      }).addTo(map);
+    }
+  });
+</script>
+{% endblock %}

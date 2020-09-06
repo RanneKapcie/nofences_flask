@@ -1,0 +1,26 @@
+{% extends "map_neigh/home.html" %}
+
+{% block content %}
+
+<div class="container">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+      <div class="notification is-danger">
+          {{ messages[0] }}
+      </div>
+  {% endif %}
+  {% endwith %}
+  <form method="POST" action="/login">
+    <label>Nazwa użytkownika</label>
+    <input type="text" id="username" placeholder="Nazwa użytkownika" name="username" required>
+    <label>Wprowadź hasło</label>
+    <input type="password" id="password" placeholder="Hasło" name="password" required>
+
+    <button class="btn btn-primary" type="submit">Zaloguj</button>
+  </form>
+
+  Nie masz konta? <a href="/register"><strong>Zarejestruj się.</strong></a>
+    <a href="">Zapomniałeś hasła?</a><br>
+</div>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "map_neigh/home.html" %}
+
+{% block content %}
+
+<div class="container">
+    {% if current_user.is_authenticated %}
+  <h4>
+      Twoja konwersacja z {{ username }}
+  </h4>
+
+    {% for message in messages %}
+    <h5 style="font-size:0.75vw"> {{ message.date_send }} {{ message.sender }} </h5>
+    <h5 style="font-size:1vw"> {{ message.message }} </h5>
+    {% endfor %}
+
+    {% else %}
+    Zaloguj się
+    {% endif %}
+    <br><br>
+  <a href='../change_password'>Zmiana hasła</a>
+</div>
+
+{% endblock %}
